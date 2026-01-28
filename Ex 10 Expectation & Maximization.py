@@ -1,0 +1,23 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.mixture import GaussianMixture
+from sklearn.datasets import make_blobs
+
+
+X, y_true = make_blobs(n_samples=300, centers=2, cluster_std=0.60, random_state=0)
+
+
+gmm = GaussianMixture(n_components=2, random_state=42)
+gmm.fit(X)
+
+labels = gmm.predict(X)
+
+plt.figure(figsize=(8, 5))
+plt.scatter(X[:, 0], X[:, 1], c=labels, s=40, cmap='viridis')
+plt.title('Expectation-Maximization (GMM) Clustering')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
+print(f"Converged: {gmm.converged_}")
+print(f"Number of iterations: {gmm.n_iter_}")
+print(f"Means of clusters:\n {gmm.means_}")
